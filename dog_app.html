@@ -13180,6 +13180,8 @@ div#notebook {
 <span class="kn">from</span> <span class="nn">keras.utils</span> <span class="k">import</span> <span class="n">np_utils</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">glob</span> <span class="k">import</span> <span class="n">glob</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="c1"># define function to load train, test, and validation datasets</span>
 <span class="k">def</span> <span class="nf">load_dataset</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
@@ -13290,6 +13292,106 @@ There are 836 test dog images.
 </div>
 
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># explore the dogs files</span>
+<span class="n">dog_main_breeds</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">train_files</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span><span class="s2">&quot; &quot;</span><span class="p">)</span>\
+<span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">7</span><span class="p">]</span>\
+<span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># get top dog breeds</span>
+<span class="n">dog_main_breeds</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[4]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Alaskan malamute                  77
+Border collie                     74
+Basset hound                      73
+Dalmatian                         71
+Basenji                           69
+Bull terrier                      69
+Bullmastiff                       69
+Cavalier king charles spaniel     67
+Irish terrier                     66
+American staffordshire terrier    66
+Name: 0, dtype: int64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># bar chart of the top 10 dog breeds</span>
+<span class="n">dog_main_breeds</span><span class="p">[:</span><span class="mi">15</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;barh&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;count of dogs&#39; images in the breed&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;dog breeds&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Number of dogs&#39; images per breed&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13303,7 +13405,7 @@ There are 836 test dog images.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">cv2</span>                
@@ -13387,7 +13489,7 @@ There are 836 test dog images.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># returns &quot;True&quot; if face is detected in image stored at img_path</span>
@@ -13420,7 +13522,7 @@ There are 836 test dog images.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">human_files_short</span> <span class="o">=</span> <span class="n">human_files</span><span class="p">[:</span><span class="mi">100</span><span class="p">]</span>
@@ -13476,7 +13578,7 @@ The percentage of files which are deteced as faces in dogs files is 11.0%
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## (Optional) TODO: Report the performance of another  </span>
@@ -13501,7 +13603,7 @@ The percentage of files which are deteced as faces in dogs files is 11.0%
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">keras.applications.resnet50</span> <span class="k">import</span> <span class="n">ResNet50</span>
@@ -13554,7 +13656,7 @@ $$<p>Here, <code>nb_samples</code> is the number of samples, or number of images
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">keras.preprocessing</span> <span class="k">import</span> <span class="n">image</span>                  
@@ -13590,7 +13692,7 @@ $$<p>Here, <code>nb_samples</code> is the number of samples, or number of images
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">keras.applications.resnet50</span> <span class="k">import</span> <span class="n">preprocess_input</span><span class="p">,</span> <span class="n">decode_predictions</span>
@@ -13617,7 +13719,7 @@ $$<p>Here, <code>nb_samples</code> is the number of samples, or number of images
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### returns &quot;True&quot; if a dog is detected in the image stored at img_path</span>
@@ -13646,7 +13748,7 @@ $$<p>Here, <code>nb_samples</code> is the number of samples, or number of images
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### TODO: Test the performance of the dog_detector function</span>
@@ -13753,7 +13855,7 @@ The percentage of files which are deteced as dogs in dogs files is 100.0%
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">ImageFile</span>                            
@@ -13779,9 +13881,9 @@ The percentage of files which are deteced as dogs in dogs files is 100.0%
 
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>100%|██████████| 6680/6680 [01:07&lt;00:00, 99.47it/s] 
-100%|██████████| 835/835 [00:08&lt;00:00, 101.40it/s]
-100%|██████████| 836/836 [00:07&lt;00:00, 111.99it/s]
+<pre>100%|██████████| 6680/6680 [01:14&lt;00:00, 90.15it/s] 
+100%|██████████| 835/835 [00:08&lt;00:00, 93.89it/s] 
+100%|██████████| 836/836 [00:08&lt;00:00, 101.69it/s]
 </pre>
 </div>
 </div>
@@ -13808,7 +13910,7 @@ The percentage of files which are deteced as dogs in dogs files is 100.0%
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">keras.layers</span> <span class="k">import</span> <span class="n">Conv2D</span><span class="p">,</span> <span class="n">MaxPooling2D</span><span class="p">,</span> <span class="n">GlobalAveragePooling2D</span>
@@ -13892,7 +13994,7 @@ _________________________________________________________________
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;rmsprop&#39;</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;categorical_crossentropy&#39;</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
@@ -13914,7 +14016,7 @@ _________________________________________________________________
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">keras.callbacks</span> <span class="k">import</span> <span class="n">ModelCheckpoint</span>  
@@ -13949,48 +14051,48 @@ _________________________________________________________________
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Train on 6680 samples, validate on 835 samples
 Epoch 1/10
-6660/6680 [============================&gt;.] - ETA: 0s - loss: 4.8828 - acc: 0.0108Epoch 00001: val_loss improved from inf to 4.87422, saving model to saved_models/weights.best.from_scratch.hdf5
-6680/6680 [==============================] - 17s 2ms/step - loss: 4.8829 - acc: 0.0108 - val_loss: 4.8742 - val_acc: 0.0108
+6660/6680 [============================&gt;.] - ETA: 0s - loss: 4.8839 - acc: 0.0084Epoch 00001: val_loss improved from inf to 4.86816, saving model to saved_models/weights.best.from_scratch.hdf5
+6680/6680 [==============================] - 18s 3ms/step - loss: 4.8840 - acc: 0.0085 - val_loss: 4.8682 - val_acc: 0.0096
 Epoch 2/10
-6660/6680 [============================&gt;.] - ETA: 0s - loss: 4.8696 - acc: 0.0110Epoch 00002: val_loss improved from 4.87422 to 4.86181, saving model to saved_models/weights.best.from_scratch.hdf5
-6680/6680 [==============================] - 16s 2ms/step - loss: 4.8696 - acc: 0.0109 - val_loss: 4.8618 - val_acc: 0.0156
+6640/6680 [============================&gt;.] - ETA: 0s - loss: 4.8475 - acc: 0.0130Epoch 00002: val_loss improved from 4.86816 to 4.84024, saving model to saved_models/weights.best.from_scratch.hdf5
+6680/6680 [==============================] - 17s 3ms/step - loss: 4.8470 - acc: 0.0133 - val_loss: 4.8402 - val_acc: 0.0144
 Epoch 3/10
-6660/6680 [============================&gt;.] - ETA: 0s - loss: 4.8561 - acc: 0.0140Epoch 00003: val_loss improved from 4.86181 to 4.84693, saving model to saved_models/weights.best.from_scratch.hdf5
-6680/6680 [==============================] - 16s 2ms/step - loss: 4.8561 - acc: 0.0139 - val_loss: 4.8469 - val_acc: 0.0120
+6660/6680 [============================&gt;.] - ETA: 0s - loss: 4.8018 - acc: 0.0158Epoch 00003: val_loss improved from 4.84024 to 4.79843, saving model to saved_models/weights.best.from_scratch.hdf5
+6680/6680 [==============================] - 17s 3ms/step - loss: 4.8017 - acc: 0.0157 - val_loss: 4.7984 - val_acc: 0.0180
 Epoch 4/10
-6660/6680 [============================&gt;.] - ETA: 0s - loss: 4.8338 - acc: 0.0144Epoch 00004: val_loss improved from 4.84693 to 4.82729, saving model to saved_models/weights.best.from_scratch.hdf5
-6680/6680 [==============================] - 16s 2ms/step - loss: 4.8342 - acc: 0.0145 - val_loss: 4.8273 - val_acc: 0.0204
+6660/6680 [============================&gt;.] - ETA: 0s - loss: 4.7663 - acc: 0.0179Epoch 00004: val_loss improved from 4.79843 to 4.77128, saving model to saved_models/weights.best.from_scratch.hdf5
+6680/6680 [==============================] - 17s 3ms/step - loss: 4.7668 - acc: 0.0178 - val_loss: 4.7713 - val_acc: 0.0204
 Epoch 5/10
-6660/6680 [============================&gt;.] - ETA: 0s - loss: 4.8115 - acc: 0.0176Epoch 00005: val_loss improved from 4.82729 to 4.80321, saving model to saved_models/weights.best.from_scratch.hdf5
-6680/6680 [==============================] - 16s 2ms/step - loss: 4.8114 - acc: 0.0175 - val_loss: 4.8032 - val_acc: 0.0204
+6640/6680 [============================&gt;.] - ETA: 0s - loss: 4.7340 - acc: 0.0235Epoch 00005: val_loss improved from 4.77128 to 4.74271, saving model to saved_models/weights.best.from_scratch.hdf5
+6680/6680 [==============================] - 17s 3ms/step - loss: 4.7334 - acc: 0.0234 - val_loss: 4.7427 - val_acc: 0.0228
 Epoch 6/10
-6660/6680 [============================&gt;.] - ETA: 0s - loss: 4.7774 - acc: 0.0222Epoch 00006: val_loss improved from 4.80321 to 4.78538, saving model to saved_models/weights.best.from_scratch.hdf5
-6680/6680 [==============================] - 16s 2ms/step - loss: 4.7773 - acc: 0.0223 - val_loss: 4.7854 - val_acc: 0.0228
+6660/6680 [============================&gt;.] - ETA: 0s - loss: 4.7009 - acc: 0.0266Epoch 00006: val_loss improved from 4.74271 to 4.73782, saving model to saved_models/weights.best.from_scratch.hdf5
+6680/6680 [==============================] - 17s 3ms/step - loss: 4.7010 - acc: 0.0265 - val_loss: 4.7378 - val_acc: 0.0275
 Epoch 7/10
-6660/6680 [============================&gt;.] - ETA: 0s - loss: 4.7333 - acc: 0.0278Epoch 00007: val_loss improved from 4.78538 to 4.74197, saving model to saved_models/weights.best.from_scratch.hdf5
-6680/6680 [==============================] - 16s 2ms/step - loss: 4.7329 - acc: 0.0277 - val_loss: 4.7420 - val_acc: 0.0287
+6660/6680 [============================&gt;.] - ETA: 0s - loss: 4.6661 - acc: 0.0287Epoch 00007: val_loss improved from 4.73782 to 4.69347, saving model to saved_models/weights.best.from_scratch.hdf5
+6680/6680 [==============================] - 17s 3ms/step - loss: 4.6659 - acc: 0.0287 - val_loss: 4.6935 - val_acc: 0.0383
 Epoch 8/10
-6660/6680 [============================&gt;.] - ETA: 0s - loss: 4.6821 - acc: 0.0330Epoch 00008: val_loss improved from 4.74197 to 4.69910, saving model to saved_models/weights.best.from_scratch.hdf5
-6680/6680 [==============================] - 16s 2ms/step - loss: 4.6824 - acc: 0.0331 - val_loss: 4.6991 - val_acc: 0.0371
+6660/6680 [============================&gt;.] - ETA: 0s - loss: 4.6292 - acc: 0.0321Epoch 00008: val_loss improved from 4.69347 to 4.67011, saving model to saved_models/weights.best.from_scratch.hdf5
+6680/6680 [==============================] - 17s 3ms/step - loss: 4.6292 - acc: 0.0322 - val_loss: 4.6701 - val_acc: 0.0287
 Epoch 9/10
-6660/6680 [============================&gt;.] - ETA: 0s - loss: 4.6348 - acc: 0.0354Epoch 00009: val_loss improved from 4.69910 to 4.66890, saving model to saved_models/weights.best.from_scratch.hdf5
-6680/6680 [==============================] - 16s 2ms/step - loss: 4.6354 - acc: 0.0353 - val_loss: 4.6689 - val_acc: 0.0359
+6660/6680 [============================&gt;.] - ETA: 0s - loss: 4.5923 - acc: 0.0353Epoch 00009: val_loss improved from 4.67011 to 4.62614, saving model to saved_models/weights.best.from_scratch.hdf5
+6680/6680 [==============================] - 17s 3ms/step - loss: 4.5921 - acc: 0.0352 - val_loss: 4.6261 - val_acc: 0.0491
 Epoch 10/10
-6660/6680 [============================&gt;.] - ETA: 0s - loss: 4.5886 - acc: 0.0347Epoch 00010: val_loss improved from 4.66890 to 4.62831, saving model to saved_models/weights.best.from_scratch.hdf5
-6680/6680 [==============================] - 16s 2ms/step - loss: 4.5887 - acc: 0.0346 - val_loss: 4.6283 - val_acc: 0.0371
+6660/6680 [============================&gt;.] - ETA: 0s - loss: 4.5412 - acc: 0.0408Epoch 00010: val_loss improved from 4.62614 to 4.58186, saving model to saved_models/weights.best.from_scratch.hdf5
+6680/6680 [==============================] - 17s 3ms/step - loss: 4.5419 - acc: 0.0407 - val_loss: 4.5819 - val_acc: 0.0431
 </pre>
 </div>
 </div>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[15]:</div>
+    <div class="prompt output_prompt">Out[18]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;keras.callbacks.History at 0x7f3aa4d4b630&gt;</pre>
+<pre>&lt;keras.callbacks.History at 0x7ff44179f160&gt;</pre>
 </div>
 
 </div>
@@ -14008,7 +14110,7 @@ Epoch 10/10
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">load_weights</span><span class="p">(</span><span class="s1">&#39;saved_models/weights.best.from_scratch.hdf5&#39;</span><span class="p">)</span>
@@ -14029,7 +14131,7 @@ Epoch 10/10
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># get index of predicted dog breed for each image in test set</span>
@@ -14054,7 +14156,7 @@ Epoch 10/10
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Test accuracy: 4.1866%
+<pre>Test accuracy: 5.3828%
 </pre>
 </div>
 </div>
@@ -14075,7 +14177,7 @@ Epoch 10/10
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">bottleneck_features</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;bottleneck_features/DogVGG16Data.npz&#39;</span><span class="p">)</span>
@@ -14099,7 +14201,7 @@ Epoch 10/10
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">VGG16_model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
@@ -14151,7 +14253,7 @@ _________________________________________________________________
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">VGG16_model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s1">&#39;categorical_crossentropy&#39;</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;rmsprop&#39;</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
@@ -14171,7 +14273,7 @@ _________________________________________________________________
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">checkpointer</span> <span class="o">=</span> <span class="n">ModelCheckpoint</span><span class="p">(</span><span class="n">filepath</span><span class="o">=</span><span class="s1">&#39;saved_models/weights.best.VGG16.hdf5&#39;</span><span class="p">,</span> 
@@ -14198,78 +14300,78 @@ _________________________________________________________________
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Train on 6680 samples, validate on 835 samples
 Epoch 1/20
-6620/6680 [============================&gt;.] - ETA: 0s - loss: 12.4850 - acc: 0.1172Epoch 00001: val_loss improved from inf to 10.98986, saving model to saved_models/weights.best.VGG16.hdf5
-6680/6680 [==============================] - 2s 290us/step - loss: 12.4746 - acc: 0.1178 - val_loss: 10.9899 - val_acc: 0.2060
+6540/6680 [============================&gt;.] - ETA: 0s - loss: 12.2361 - acc: 0.1245Epoch 00001: val_loss improved from inf to 10.53916, saving model to saved_models/weights.best.VGG16.hdf5
+6680/6680 [==============================] - 2s 307us/step - loss: 12.1976 - acc: 0.1269 - val_loss: 10.5392 - val_acc: 0.2228
 Epoch 2/20
-6600/6680 [============================&gt;.] - ETA: 0s - loss: 10.3987 - acc: 0.2702Epoch 00002: val_loss improved from 10.98986 to 10.29667, saving model to saved_models/weights.best.VGG16.hdf5
-6680/6680 [==============================] - 2s 246us/step - loss: 10.3957 - acc: 0.2708 - val_loss: 10.2967 - val_acc: 0.2731
+6480/6680 [============================&gt;.] - ETA: 0s - loss: 9.8412 - acc: 0.2981Epoch 00002: val_loss improved from 10.53916 to 9.74864, saving model to saved_models/weights.best.VGG16.hdf5
+6680/6680 [==============================] - 2s 265us/step - loss: 9.8083 - acc: 0.3003 - val_loss: 9.7486 - val_acc: 0.3066
 Epoch 3/20
-6520/6680 [============================&gt;.] - ETA: 0s - loss: 9.9440 - acc: 0.3290  ETA: 0s - loss: 10.054Epoch 00003: val_loss improved from 10.29667 to 10.06686, saving model to saved_models/weights.best.VGG16.hdf5
-6680/6680 [==============================] - 2s 250us/step - loss: 9.9226 - acc: 0.3302 - val_loss: 10.0669 - val_acc: 0.2994
+6540/6680 [============================&gt;.] - ETA: 0s - loss: 9.3129 - acc: 0.3633Epoch 00003: val_loss improved from 9.74864 to 9.49457, saving model to saved_models/weights.best.VGG16.hdf5
+6680/6680 [==============================] - 2s 263us/step - loss: 9.3064 - acc: 0.3638 - val_loss: 9.4946 - val_acc: 0.3317
 Epoch 4/20
-6620/6680 [============================&gt;.] - ETA: 0s - loss: 9.5816 - acc: 0.3544Epoch 00004: val_loss improved from 10.06686 to 9.79496, saving model to saved_models/weights.best.VGG16.hdf5
-6680/6680 [==============================] - 2s 250us/step - loss: 9.5780 - acc: 0.3546 - val_loss: 9.7950 - val_acc: 0.3042
+6600/6680 [============================&gt;.] - ETA: 0s - loss: 9.0029 - acc: 0.3941Epoch 00004: val_loss improved from 9.49457 to 9.45573, saving model to saved_models/weights.best.VGG16.hdf5
+6680/6680 [==============================] - 2s 260us/step - loss: 9.0143 - acc: 0.3934 - val_loss: 9.4557 - val_acc: 0.3425
 Epoch 5/20
-6460/6680 [============================&gt;.] - ETA: 0s - loss: 8.9639 - acc: 0.3912Epoch 00005: val_loss improved from 9.79496 to 9.13597, saving model to saved_models/weights.best.VGG16.hdf5
-6680/6680 [==============================] - 2s 249us/step - loss: 9.0056 - acc: 0.3891 - val_loss: 9.1360 - val_acc: 0.3665
+6540/6680 [============================&gt;.] - ETA: 0s - loss: 8.8433 - acc: 0.4136Epoch 00005: val_loss improved from 9.45573 to 9.26406, saving model to saved_models/weights.best.VGG16.hdf5
+6680/6680 [==============================] - 2s 263us/step - loss: 8.8303 - acc: 0.4144 - val_loss: 9.2641 - val_acc: 0.3449
 Epoch 6/20
-6540/6680 [============================&gt;.] - ETA: 0s - loss: 8.5316 - acc: 0.4268Epoch 00006: val_loss improved from 9.13597 to 8.87813, saving model to saved_models/weights.best.VGG16.hdf5
-6680/6680 [==============================] - 2s 250us/step - loss: 8.5361 - acc: 0.4265 - val_loss: 8.8781 - val_acc: 0.3784
+6560/6680 [============================&gt;.] - ETA: 0s - loss: 8.6292 - acc: 0.4337Epoch 00006: val_loss improved from 9.26406 to 9.09872, saving model to saved_models/weights.best.VGG16.hdf5
+6680/6680 [==============================] - 2s 262us/step - loss: 8.6141 - acc: 0.4341 - val_loss: 9.0987 - val_acc: 0.3521
 Epoch 7/20
-6540/6680 [============================&gt;.] - ETA: 0s - loss: 8.2796 - acc: 0.4558Epoch 00007: val_loss improved from 8.87813 to 8.70541, saving model to saved_models/weights.best.VGG16.hdf5
-6680/6680 [==============================] - 2s 245us/step - loss: 8.2911 - acc: 0.4551 - val_loss: 8.7054 - val_acc: 0.3928
+6560/6680 [============================&gt;.] - ETA: 0s - loss: 8.5385 - acc: 0.4498Epoch 00007: val_loss improved from 9.09872 to 9.06274, saving model to saved_models/weights.best.VGG16.hdf5
+6680/6680 [==============================] - 2s 262us/step - loss: 8.5366 - acc: 0.4500 - val_loss: 9.0627 - val_acc: 0.3629
 Epoch 8/20
-6460/6680 [============================&gt;.] - ETA: 0s - loss: 8.1047 - acc: 0.4704Epoch 00008: val_loss improved from 8.70541 to 8.59611, saving model to saved_models/weights.best.VGG16.hdf5
-6680/6680 [==============================] - 2s 247us/step - loss: 8.1035 - acc: 0.4701 - val_loss: 8.5961 - val_acc: 0.3892
+6540/6680 [============================&gt;.] - ETA: 0s - loss: 8.4330 - acc: 0.4575Epoch 00008: val_loss improved from 9.06274 to 8.94423, saving model to saved_models/weights.best.VGG16.hdf5
+6680/6680 [==============================] - 2s 262us/step - loss: 8.4240 - acc: 0.4579 - val_loss: 8.9442 - val_acc: 0.3832
 Epoch 9/20
-6600/6680 [============================&gt;.] - ETA: 0s - loss: 7.9498 - acc: 0.4839Epoch 00009: val_loss improved from 8.59611 to 8.55980, saving model to saved_models/weights.best.VGG16.hdf5
-6680/6680 [==============================] - 2s 249us/step - loss: 7.9617 - acc: 0.4831 - val_loss: 8.5598 - val_acc: 0.3940
+6620/6680 [============================&gt;.] - ETA: 0s - loss: 8.3455 - acc: 0.4689Epoch 00009: val_loss improved from 8.94423 to 8.87049, saving model to saved_models/weights.best.VGG16.hdf5
+6680/6680 [==============================] - 2s 260us/step - loss: 8.3462 - acc: 0.4686 - val_loss: 8.8705 - val_acc: 0.3856
 Epoch 10/20
-6660/6680 [============================&gt;.] - ETA: 0s - loss: 7.9245 - acc: 0.4928Epoch 00010: val_loss improved from 8.55980 to 8.45574, saving model to saved_models/weights.best.VGG16.hdf5
-6680/6680 [==============================] - 2s 248us/step - loss: 7.9273 - acc: 0.4927 - val_loss: 8.4557 - val_acc: 0.4096
+6540/6680 [============================&gt;.] - ETA: 0s - loss: 8.1851 - acc: 0.4746Epoch 00010: val_loss improved from 8.87049 to 8.66599, saving model to saved_models/weights.best.VGG16.hdf5
+6680/6680 [==============================] - 2s 262us/step - loss: 8.1780 - acc: 0.4747 - val_loss: 8.6660 - val_acc: 0.4000
 Epoch 11/20
-6440/6680 [===========================&gt;..] - ETA: 0s - loss: 7.8843 - acc: 0.4949Epoch 00011: val_loss did not improve
-6680/6680 [==============================] - 2s 246us/step - loss: 7.8535 - acc: 0.4970 - val_loss: 8.4618 - val_acc: 0.3964
+6600/6680 [============================&gt;.] - ETA: 0s - loss: 7.9458 - acc: 0.4927Epoch 00011: val_loss improved from 8.66599 to 8.62201, saving model to saved_models/weights.best.VGG16.hdf5
+6680/6680 [==============================] - 2s 261us/step - loss: 7.9618 - acc: 0.4919 - val_loss: 8.6220 - val_acc: 0.4000
 Epoch 12/20
-6640/6680 [============================&gt;.] - ETA: 0s - loss: 7.8001 - acc: 0.5026Epoch 00012: val_loss improved from 8.45574 to 8.28279, saving model to saved_models/weights.best.VGG16.hdf5
-6680/6680 [==============================] - 2s 249us/step - loss: 7.7872 - acc: 0.5034 - val_loss: 8.2828 - val_acc: 0.4216
+6580/6680 [============================&gt;.] - ETA: 0s - loss: 7.9362 - acc: 0.4967Epoch 00012: val_loss improved from 8.62201 to 8.54670, saving model to saved_models/weights.best.VGG16.hdf5
+6680/6680 [==============================] - 2s 260us/step - loss: 7.9291 - acc: 0.4972 - val_loss: 8.5467 - val_acc: 0.4036
 Epoch 13/20
-6520/6680 [============================&gt;.] - ETA: 0s - loss: 7.5749 - acc: 0.5072Epoch 00013: val_loss improved from 8.28279 to 8.23210, saving model to saved_models/weights.best.VGG16.hdf5
-6680/6680 [==============================] - 2s 247us/step - loss: 7.5579 - acc: 0.5082 - val_loss: 8.2321 - val_acc: 0.4084
+6540/6680 [============================&gt;.] - ETA: 0s - loss: 7.8638 - acc: 0.5005Epoch 00013: val_loss improved from 8.54670 to 8.35565, saving model to saved_models/weights.best.VGG16.hdf5
+6680/6680 [==============================] - 2s 261us/step - loss: 7.8616 - acc: 0.5003 - val_loss: 8.3556 - val_acc: 0.4156
 Epoch 14/20
-6600/6680 [============================&gt;.] - ETA: 0s - loss: 7.3360 - acc: 0.5258Epoch 00014: val_loss improved from 8.23210 to 8.20620, saving model to saved_models/weights.best.VGG16.hdf5
-6680/6680 [==============================] - 2s 247us/step - loss: 7.3471 - acc: 0.5249 - val_loss: 8.2062 - val_acc: 0.4144
+6540/6680 [============================&gt;.] - ETA: 0s - loss: 7.6735 - acc: 0.5104Epoch 00014: val_loss improved from 8.35565 to 8.22469, saving model to saved_models/weights.best.VGG16.hdf5
+6680/6680 [==============================] - 2s 263us/step - loss: 7.6725 - acc: 0.5105 - val_loss: 8.2247 - val_acc: 0.4311
 Epoch 15/20
-6500/6680 [============================&gt;.] - ETA: 0s - loss: 7.2828 - acc: 0.5357Epoch 00015: val_loss improved from 8.20620 to 7.96655, saving model to saved_models/weights.best.VGG16.hdf5
-6680/6680 [==============================] - 2s 249us/step - loss: 7.2752 - acc: 0.5359 - val_loss: 7.9665 - val_acc: 0.4287
+6580/6680 [============================&gt;.] - ETA: 0s - loss: 7.6107 - acc: 0.5202Epoch 00015: val_loss did not improve
+6680/6680 [==============================] - 2s 260us/step - loss: 7.6091 - acc: 0.5204 - val_loss: 8.2295 - val_acc: 0.4323
 Epoch 16/20
-6500/6680 [============================&gt;.] - ETA: 0s - loss: 7.0764 - acc: 0.5429Epoch 00016: val_loss improved from 7.96655 to 7.78451, saving model to saved_models/weights.best.VGG16.hdf5
-6680/6680 [==============================] - 2s 249us/step - loss: 7.0746 - acc: 0.5434 - val_loss: 7.7845 - val_acc: 0.4335
+6620/6680 [============================&gt;.] - ETA: 0s - loss: 7.5831 - acc: 0.5230Epoch 00016: val_loss did not improve
+6680/6680 [==============================] - 2s 260us/step - loss: 7.5874 - acc: 0.5228 - val_loss: 8.2250 - val_acc: 0.4287
 Epoch 17/20
-6520/6680 [============================&gt;.] - ETA: 0s - loss: 6.9728 - acc: 0.5543Epoch 00017: val_loss improved from 7.78451 to 7.60432, saving model to saved_models/weights.best.VGG16.hdf5
-6680/6680 [==============================] - 2s 251us/step - loss: 6.9563 - acc: 0.5554 - val_loss: 7.6043 - val_acc: 0.4575
+6560/6680 [============================&gt;.] - ETA: 0s - loss: 7.5612 - acc: 0.5262Epoch 00017: val_loss did not improve
+6680/6680 [==============================] - 2s 260us/step - loss: 7.5726 - acc: 0.5256 - val_loss: 8.2480 - val_acc: 0.4287
 Epoch 18/20
-6620/6680 [============================&gt;.] - ETA: 0s - loss: 6.9127 - acc: 0.5615Epoch 00018: val_loss did not improve
-6680/6680 [==============================] - 2s 247us/step - loss: 6.9165 - acc: 0.5612 - val_loss: 7.7235 - val_acc: 0.4467
+6560/6680 [============================&gt;.] - ETA: 0s - loss: 7.5521 - acc: 0.5253Epoch 00018: val_loss improved from 8.22469 to 8.20362, saving model to saved_models/weights.best.VGG16.hdf5
+6680/6680 [==============================] - 2s 263us/step - loss: 7.5565 - acc: 0.5251 - val_loss: 8.2036 - val_acc: 0.4287
 Epoch 19/20
-6500/6680 [============================&gt;.] - ETA: 0s - loss: 6.7973 - acc: 0.5649Epoch 00019: val_loss did not improve
-6680/6680 [==============================] - 2s 250us/step - loss: 6.7906 - acc: 0.5656 - val_loss: 7.6114 - val_acc: 0.4431
+6580/6680 [============================&gt;.] - ETA: 0s - loss: 7.4130 - acc: 0.5267Epoch 00019: val_loss improved from 8.20362 to 8.06762, saving model to saved_models/weights.best.VGG16.hdf5
+6680/6680 [==============================] - 2s 262us/step - loss: 7.4120 - acc: 0.5268 - val_loss: 8.0676 - val_acc: 0.4275
 Epoch 20/20
-6580/6680 [============================&gt;.] - ETA: 0s - loss: 6.6596 - acc: 0.5739Epoch 00020: val_loss improved from 7.60432 to 7.53702, saving model to saved_models/weights.best.VGG16.hdf5
-6680/6680 [==============================] - 2s 250us/step - loss: 6.6590 - acc: 0.5741 - val_loss: 7.5370 - val_acc: 0.4587
+6580/6680 [============================&gt;.] - ETA: 0s - loss: 7.2032 - acc: 0.5407Epoch 00020: val_loss improved from 8.06762 to 7.93686, saving model to saved_models/weights.best.VGG16.hdf5
+6680/6680 [==============================] - 2s 261us/step - loss: 7.2120 - acc: 0.5403 - val_loss: 7.9369 - val_acc: 0.4455
 </pre>
 </div>
 </div>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[21]:</div>
+    <div class="prompt output_prompt">Out[24]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;keras.callbacks.History at 0x7f3a9fee8080&gt;</pre>
+<pre>&lt;keras.callbacks.History at 0x7ff4400e3b00&gt;</pre>
 </div>
 
 </div>
@@ -14287,7 +14389,7 @@ Epoch 20/20
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">VGG16_model</span><span class="o">.</span><span class="n">load_weights</span><span class="p">(</span><span class="s1">&#39;saved_models/weights.best.VGG16.hdf5&#39;</span><span class="p">)</span>
@@ -14308,7 +14410,7 @@ Epoch 20/20
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[23]:</div>
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># get index of predicted dog breed for each image in test set</span>
@@ -14333,7 +14435,7 @@ Epoch 20/20
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Test accuracy: 46.4115%
+<pre>Test accuracy: 45.3349%
 </pre>
 </div>
 </div>
@@ -14351,7 +14453,7 @@ Epoch 20/20
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">extract_bottleneck_features</span> <span class="k">import</span> <span class="o">*</span>
@@ -14401,7 +14503,7 @@ test_{network} = bottleneck_features['test']</code></pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="prompt input_prompt">In&nbsp;[28]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### TODO: Obtain bottleneck features from another pre-trained CNN.</span>
@@ -14445,7 +14547,7 @@ test_{network} = bottleneck_features['test']</code></pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### TODO: Define your architecture.</span>
@@ -14512,7 +14614,7 @@ _________________________________________________________________
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### TODO: Compile the model.</span>
@@ -14535,7 +14637,7 @@ _________________________________________________________________
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[28]:</div>
+<div class="prompt input_prompt">In&nbsp;[31]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### TODO: Train the model.</span>
@@ -14563,78 +14665,78 @@ _________________________________________________________________
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Train on 6680 samples, validate on 835 samples
 Epoch 1/20
-6500/6680 [============================&gt;.] - ETA: 0s - loss: 3.6600 - acc: 0.2489Epoch 00001: val_loss improved from inf to 1.58200, saving model to saved_models/weights.best.VGG19.hdf5
-6680/6680 [==============================] - 2s 367us/step - loss: 3.6293 - acc: 0.2525 - val_loss: 1.5820 - val_acc: 0.5772
+6600/6680 [============================&gt;.] - ETA: 0s - loss: 3.7013 - acc: 0.2617Epoch 00001: val_loss improved from inf to 1.52968, saving model to saved_models/weights.best.VGG19.hdf5
+6680/6680 [==============================] - 3s 395us/step - loss: 3.6850 - acc: 0.2635 - val_loss: 1.5297 - val_acc: 0.5952
 Epoch 2/20
-6500/6680 [============================&gt;.] - ETA: 0s - loss: 1.6495 - acc: 0.5611Epoch 00002: val_loss improved from 1.58200 to 1.15251, saving model to saved_models/weights.best.VGG19.hdf5
-6680/6680 [==============================] - 2s 316us/step - loss: 1.6497 - acc: 0.5608 - val_loss: 1.1525 - val_acc: 0.6754
+6540/6680 [============================&gt;.] - ETA: 0s - loss: 1.6226 - acc: 0.5650Epoch 00002: val_loss improved from 1.52968 to 1.14897, saving model to saved_models/weights.best.VGG19.hdf5
+6680/6680 [==============================] - 2s 345us/step - loss: 1.6284 - acc: 0.5641 - val_loss: 1.1490 - val_acc: 0.6587
 Epoch 3/20
-6520/6680 [============================&gt;.] - ETA: 0s - loss: 1.2295 - acc: 0.6589Epoch 00003: val_loss improved from 1.15251 to 1.09088, saving model to saved_models/weights.best.VGG19.hdf5
-6680/6680 [==============================] - 2s 316us/step - loss: 1.2305 - acc: 0.6596 - val_loss: 1.0909 - val_acc: 0.6958
+6520/6680 [============================&gt;.] - ETA: 0s - loss: 1.2131 - acc: 0.6695Epoch 00003: val_loss improved from 1.14897 to 1.07633, saving model to saved_models/weights.best.VGG19.hdf5
+6680/6680 [==============================] - 2s 359us/step - loss: 1.2183 - acc: 0.6689 - val_loss: 1.0763 - val_acc: 0.6850
 Epoch 4/20
-6500/6680 [============================&gt;.] - ETA: 0s - loss: 1.0152 - acc: 0.7171Epoch 00004: val_loss improved from 1.09088 to 1.07289, saving model to saved_models/weights.best.VGG19.hdf5
-6680/6680 [==============================] - 2s 317us/step - loss: 1.0173 - acc: 0.7174 - val_loss: 1.0729 - val_acc: 0.7150
+6600/6680 [============================&gt;.] - ETA: 0s - loss: 1.0257 - acc: 0.7152Epoch 00004: val_loss improved from 1.07633 to 1.06820, saving model to saved_models/weights.best.VGG19.hdf5
+6680/6680 [==============================] - 2s 361us/step - loss: 1.0257 - acc: 0.7153 - val_loss: 1.0682 - val_acc: 0.7174
 Epoch 5/20
-6500/6680 [============================&gt;.] - ETA: 0s - loss: 0.9079 - acc: 0.7517Epoch 00005: val_loss did not improve
-6680/6680 [==============================] - 2s 316us/step - loss: 0.9115 - acc: 0.7510 - val_loss: 1.1440 - val_acc: 0.7090
+6560/6680 [============================&gt;.] - ETA: 0s - loss: 0.9339 - acc: 0.7494Epoch 00005: val_loss improved from 1.06820 to 0.99791, saving model to saved_models/weights.best.VGG19.hdf5
+6680/6680 [==============================] - 2s 337us/step - loss: 0.9378 - acc: 0.7478 - val_loss: 0.9979 - val_acc: 0.6970
 Epoch 6/20
-6500/6680 [============================&gt;.] - ETA: 0s - loss: 0.8267 - acc: 0.7740Epoch 00006: val_loss did not improve
-6680/6680 [==============================] - 2s 315us/step - loss: 0.8308 - acc: 0.7734 - val_loss: 1.1002 - val_acc: 0.7234
+6600/6680 [============================&gt;.] - ETA: 0s - loss: 0.8413 - acc: 0.7706Epoch 00006: val_loss did not improve
+6680/6680 [==============================] - 2s 333us/step - loss: 0.8398 - acc: 0.7714 - val_loss: 1.1902 - val_acc: 0.7162
 Epoch 7/20
-6500/6680 [============================&gt;.] - ETA: 0s - loss: 0.7862 - acc: 0.7869Epoch 00007: val_loss did not improve
-6680/6680 [==============================] - 2s 314us/step - loss: 0.7871 - acc: 0.7862 - val_loss: 1.1462 - val_acc: 0.7174
+6640/6680 [============================&gt;.] - ETA: 0s - loss: 0.7468 - acc: 0.8003Epoch 00007: val_loss did not improve
+6680/6680 [==============================] - 2s 334us/step - loss: 0.7466 - acc: 0.7999 - val_loss: 1.1225 - val_acc: 0.7317
 Epoch 8/20
-6500/6680 [============================&gt;.] - ETA: 0s - loss: 0.7216 - acc: 0.8148Epoch 00008: val_loss improved from 1.07289 to 1.05506, saving model to saved_models/weights.best.VGG19.hdf5
-6680/6680 [==============================] - 2s 319us/step - loss: 0.7229 - acc: 0.8144 - val_loss: 1.0551 - val_acc: 0.7234
+6640/6680 [============================&gt;.] - ETA: 0s - loss: 0.7096 - acc: 0.8119Epoch 00008: val_loss did not improve
+6680/6680 [==============================] - 2s 334us/step - loss: 0.7107 - acc: 0.8115 - val_loss: 1.0732 - val_acc: 0.7413
 Epoch 9/20
-6500/6680 [============================&gt;.] - ETA: 0s - loss: 0.6815 - acc: 0.8202Epoch 00009: val_loss improved from 1.05506 to 1.05502, saving model to saved_models/weights.best.VGG19.hdf5
-6680/6680 [==============================] - 2s 321us/step - loss: 0.6772 - acc: 0.8199 - val_loss: 1.0550 - val_acc: 0.7473
+6640/6680 [============================&gt;.] - ETA: 0s - loss: 0.6551 - acc: 0.8337Epoch 00009: val_loss did not improve
+6680/6680 [==============================] - 2s 335us/step - loss: 0.6547 - acc: 0.8335 - val_loss: 1.1398 - val_acc: 0.7365
 Epoch 10/20
-6500/6680 [============================&gt;.] - ETA: 0s - loss: 0.6736 - acc: 0.8251Epoch 00010: val_loss did not improve
-6680/6680 [==============================] - 2s 315us/step - loss: 0.6737 - acc: 0.8247 - val_loss: 1.3487 - val_acc: 0.7257
+6540/6680 [============================&gt;.] - ETA: 0s - loss: 0.6547 - acc: 0.8339Epoch 00010: val_loss did not improve
+6680/6680 [==============================] - 2s 334us/step - loss: 0.6576 - acc: 0.8329 - val_loss: 1.1394 - val_acc: 0.7425
 Epoch 11/20
-6500/6680 [============================&gt;.] - ETA: 0s - loss: 0.6439 - acc: 0.8457Epoch 00011: val_loss did not improve
-6680/6680 [==============================] - 2s 314us/step - loss: 0.6531 - acc: 0.8449 - val_loss: 1.2840 - val_acc: 0.7329
+6660/6680 [============================&gt;.] - ETA: 0s - loss: 0.6171 - acc: 0.8470Epoch 00011: val_loss did not improve
+6680/6680 [==============================] - 2s 334us/step - loss: 0.6159 - acc: 0.8472 - val_loss: 1.0617 - val_acc: 0.7581
 Epoch 12/20
-6500/6680 [============================&gt;.] - ETA: 0s - loss: 0.6132 - acc: 0.8485Epoch 00012: val_loss did not improve
-6680/6680 [==============================] - 2s 312us/step - loss: 0.6132 - acc: 0.8478 - val_loss: 1.5295 - val_acc: 0.7425
+6640/6680 [============================&gt;.] - ETA: 0s - loss: 0.5909 - acc: 0.8542Epoch 00012: val_loss did not improve
+6680/6680 [==============================] - 2s 339us/step - loss: 0.5891 - acc: 0.8543 - val_loss: 1.1936 - val_acc: 0.7689
 Epoch 13/20
-6500/6680 [============================&gt;.] - ETA: 0s - loss: 0.5936 - acc: 0.8566Epoch 00013: val_loss did not improve
-6680/6680 [==============================] - 2s 311us/step - loss: 0.5950 - acc: 0.8557 - val_loss: 1.5180 - val_acc: 0.7246
+6660/6680 [============================&gt;.] - ETA: 0s - loss: 0.6159 - acc: 0.8571Epoch 00013: val_loss did not improve
+6680/6680 [==============================] - 2s 333us/step - loss: 0.6141 - acc: 0.8575 - val_loss: 1.1869 - val_acc: 0.7605
 Epoch 14/20
-6500/6680 [============================&gt;.] - ETA: 0s - loss: 0.5805 - acc: 0.8626Epoch 00014: val_loss did not improve
-6680/6680 [==============================] - 2s 315us/step - loss: 0.5859 - acc: 0.8620 - val_loss: 1.3639 - val_acc: 0.7509
+6660/6680 [============================&gt;.] - ETA: 0s - loss: 0.5784 - acc: 0.8634Epoch 00014: val_loss did not improve
+6680/6680 [==============================] - 2s 333us/step - loss: 0.5796 - acc: 0.8635 - val_loss: 1.5603 - val_acc: 0.7449
 Epoch 15/20
-6500/6680 [============================&gt;.] - ETA: 0s - loss: 0.5893 - acc: 0.8635Epoch 00015: val_loss did not improve
-6680/6680 [==============================] - 2s 312us/step - loss: 0.5895 - acc: 0.8630 - val_loss: 1.3257 - val_acc: 0.7617
+6620/6680 [============================&gt;.] - ETA: 0s - loss: 0.5978 - acc: 0.8622Epoch 00015: val_loss did not improve
+6680/6680 [==============================] - 2s 334us/step - loss: 0.5988 - acc: 0.8617 - val_loss: 1.2737 - val_acc: 0.7497
 Epoch 16/20
-6500/6680 [============================&gt;.] - ETA: 0s - loss: 0.5623 - acc: 0.8768Epoch 00016: val_loss did not improve
-6680/6680 [==============================] - 2s 314us/step - loss: 0.5604 - acc: 0.8769 - val_loss: 1.5268 - val_acc: 0.7485
+6660/6680 [============================&gt;.] - ETA: 0s - loss: 0.5301 - acc: 0.8829Epoch 00016: val_loss did not improve
+6680/6680 [==============================] - 2s 333us/step - loss: 0.5300 - acc: 0.8828 - val_loss: 1.6138 - val_acc: 0.7749
 Epoch 17/20
-6500/6680 [============================&gt;.] - ETA: 0s - loss: 0.5680 - acc: 0.8771Epoch 00017: val_loss did not improve
-6680/6680 [==============================] - 2s 312us/step - loss: 0.5675 - acc: 0.8772 - val_loss: 1.5381 - val_acc: 0.7593
+6560/6680 [============================&gt;.] - ETA: 0s - loss: 0.5709 - acc: 0.8802Epoch 00017: val_loss did not improve
+6680/6680 [==============================] - 2s 331us/step - loss: 0.5703 - acc: 0.8801 - val_loss: 1.5567 - val_acc: 0.7605
 Epoch 18/20
-6500/6680 [============================&gt;.] - ETA: 0s - loss: 0.5456 - acc: 0.8845Epoch 00018: val_loss did not improve
-6680/6680 [==============================] - 2s 314us/step - loss: 0.5502 - acc: 0.8837 - val_loss: 1.4621 - val_acc: 0.7641
+6560/6680 [============================&gt;.] - ETA: 0s - loss: 0.5572 - acc: 0.8785Epoch 00018: val_loss did not improve
+6680/6680 [==============================] - 2s 333us/step - loss: 0.5590 - acc: 0.8787 - val_loss: 1.5895 - val_acc: 0.7629
 Epoch 19/20
-6500/6680 [============================&gt;.] - ETA: 0s - loss: 0.5407 - acc: 0.8803Epoch 00019: val_loss did not improve
-6680/6680 [==============================] - 2s 314us/step - loss: 0.5414 - acc: 0.8801 - val_loss: 1.7097 - val_acc: 0.7509
+6660/6680 [============================&gt;.] - ETA: 0s - loss: 0.5810 - acc: 0.8782Epoch 00019: val_loss did not improve
+6680/6680 [==============================] - 2s 334us/step - loss: 0.5805 - acc: 0.8783 - val_loss: 1.3056 - val_acc: 0.7593
 Epoch 20/20
-6500/6680 [============================&gt;.] - ETA: 0s - loss: 0.5790 - acc: 0.8858Epoch 00020: val_loss did not improve
-6680/6680 [==============================] - 2s 312us/step - loss: 0.5751 - acc: 0.8859 - val_loss: 1.7494 - val_acc: 0.7437
+6580/6680 [============================&gt;.] - ETA: 0s - loss: 0.5088 - acc: 0.8926Epoch 00020: val_loss did not improve
+6680/6680 [==============================] - 2s 331us/step - loss: 0.5053 - acc: 0.8931 - val_loss: 1.5163 - val_acc: 0.7677
 </pre>
 </div>
 </div>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[28]:</div>
+    <div class="prompt output_prompt">Out[31]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;keras.callbacks.History at 0x7f3a9fb32f28&gt;</pre>
+<pre>&lt;keras.callbacks.History at 0x7ff4364b69e8&gt;</pre>
 </div>
 
 </div>
@@ -14652,7 +14754,7 @@ Epoch 20/20
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="prompt input_prompt">In&nbsp;[32]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### TODO: Load the model weights with the best validation loss.</span>
@@ -14674,7 +14776,7 @@ Epoch 20/20
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="prompt input_prompt">In&nbsp;[33]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### TODO: Calculate classification accuracy on the test dataset.</span>
@@ -14700,7 +14802,7 @@ Epoch 20/20
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Test accuracy: 74.8804%
+<pre>Test accuracy: 71.5311%
 </pre>
 </div>
 </div>
@@ -14731,7 +14833,7 @@ Epoch 20/20
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[31]:</div>
+<div class="prompt input_prompt">In&nbsp;[34]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### TODO: Write a function that takes a path to an image as input</span>
@@ -14771,7 +14873,7 @@ Epoch 20/20
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[32]:</div>
+<div class="prompt input_prompt">In&nbsp;[35]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### TODO: Write your algorithm.</span>
@@ -14820,7 +14922,7 @@ Epoch 20/20
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[33]:</div>
+<div class="prompt input_prompt">In&nbsp;[36]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## TODO: Execute your algorithm from Step 6 on</span>
@@ -14863,7 +14965,7 @@ Epoch 20/20
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Downloading data from https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vgg19_weights_tf_dim_ordering_tf_kernels_notop.h5
 80142336/80134624 [==============================] - 1s 0us/step
-This picture is expected to have a human face and the resembling dog breed is Poodle
+This picture is expected to have a human face and the resembling dog breed is Afghan hound
 ==================================================
 </pre>
 </div>
@@ -14890,7 +14992,7 @@ This picture is expected to have a human face and the resembling dog breed is Po
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>This picture is expected to have a dog from the Welsh springer spaniel breed
+<pre>This picture is expected to have a dog from the Irish red and white setter breed
 ==================================================
 </pre>
 </div>
@@ -15025,7 +15127,7 @@ This picture is expected to have a human face and the resembling dog breed is Po
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>This picture is expected to have a dog from the Labrador retriever breed
+<pre>This picture is expected to have a dog from the Chesapeake bay retriever breed
 ==================================================
 </pre>
 </div>
@@ -15106,7 +15208,7 @@ This picture is expected to have a human face and the resembling dog breed is Po
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>This picture is expected to have a human face and the resembling dog breed is American staffordshire terrier
+<pre>This picture is expected to have a human face and the resembling dog breed is Icelandic sheepdog
 ==================================================
 </pre>
 </div>
@@ -15145,7 +15247,7 @@ This picture is expected to have a human face and the resembling dog breed is Po
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[35]:</div>
+<div class="prompt input_prompt">In&nbsp;[37]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">my_images</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="s2">&quot;my_images/*.*&quot;</span><span class="p">)</span>
@@ -15183,7 +15285,7 @@ This picture is expected to have a human face and the resembling dog breed is Po
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>This picture is expected to have a human face and the resembling dog breed is Maltese
+<pre>This picture is expected to have a human face and the resembling dog breed is Papillon
 ==================================================
 </pre>
 </div>
